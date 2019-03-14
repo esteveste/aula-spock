@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 
 public class Broker {
 	private static Logger logger = LoggerFactory.getLogger(Broker.class);
@@ -17,7 +18,9 @@ public class Broker {
 	private final String name;
 	private final Set<Adventure> adventures = new HashSet<>();
 
-	public Broker(String code, String name) {
+	private final BankInterface bankInterface;
+
+	public Broker(String code, String name, BankInterface bankInterface) {
 		checkCode(code);
 		this.code = code;
 
@@ -25,6 +28,8 @@ public class Broker {
 		this.name = name;
 
 		Broker.brokers.add(this);
+
+		this.bankInterface = bankInterface;
 	}
 
 	private void checkCode(String code) {
@@ -63,6 +68,10 @@ public class Broker {
 
 	public boolean hasAdventure(Adventure adventure) {
 		return this.adventures.contains(adventure);
+	}
+
+	public BankInterface getBankInterface() {
+		return bankInterface;
 	}
 
 }
