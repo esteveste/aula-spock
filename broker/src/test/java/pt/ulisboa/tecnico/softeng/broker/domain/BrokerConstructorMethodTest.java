@@ -5,12 +5,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 
 public class BrokerConstructorMethodTest {
 
 	@Test
 	public void success() {
-		Broker broker = new Broker("BR01", "WeExplore");
+		Broker broker = new Broker("BR01", "WeExplore", new BankInterface());
 
 		Assert.assertEquals("BR01", broker.getCode());
 		Assert.assertEquals("WeExplore", broker.getName());
@@ -21,7 +22,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void nullCode() {
 		try {
-			new Broker(null, "WeExplore");
+			new Broker(null, "WeExplore", new BankInterface());
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
@@ -31,7 +32,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void emptyCode() {
 		try {
-			new Broker("  ", "WeExplore");
+			new Broker("  ", "WeExplore", new BankInterface());
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
@@ -40,10 +41,10 @@ public class BrokerConstructorMethodTest {
 
 	@Test
 	public void uniqueCode() {
-		Broker broker = new Broker("BR01", "WeExplore");
+		Broker broker = new Broker("BR01", "WeExplore", new BankInterface());
 
 		try {
-			new Broker("BR01", "WeExploreX");
+			new Broker("BR01", "WeExploreX", new BankInterface());
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(1, Broker.brokers.size());
@@ -54,7 +55,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void nullName() {
 		try {
-			new Broker("BR01", null);
+			new Broker("BR01", null, new BankInterface());
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
@@ -64,7 +65,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void emptyName() {
 		try {
-			new Broker("BR01", "    ");
+			new Broker("BR01", "    ", new BankInterface());
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());

@@ -26,7 +26,7 @@ public class Adventure {
 	private String activityBooking;
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
-		this.ID = broker.getCode() + Integer.toString(++counter);
+		this.ID = broker.getCode() + ++counter;
 		this.broker = broker;
 		this.begin = begin;
 		this.end = end;
@@ -79,7 +79,7 @@ public class Adventure {
 
 	public void process() {
 		logger.debug("process ID:{} ", this.ID);
-		this.bankPayment = BankInterface.processPayment(this.IBAN, this.amount);
+		this.bankPayment = broker.getBankInterface().processPayment(this.IBAN, this.amount);
 		this.roomBooking = HotelInterface.reserveHotel(Room.Type.SINGLE, this.begin, this.end);
 		this.activityBooking = ActivityInterface.reserveActivity(this.begin, this.end, this.age);
 	}

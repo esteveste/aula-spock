@@ -27,7 +27,7 @@ public class AdventureProcessMethodMockTest {
 
 	@Before
 	public void setUp() {
-		this.broker = new Broker("BR98", "Travel Light");
+		this.broker = new Broker("BR98", "Travel Light", new BankInterface());
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class AdventureProcessMethodMockTest {
 			@Mocked final HotelInterface hotelInterface, @Mocked final ActivityInterface activityInterface) {
 		new Expectations() {
 			{
-				BankInterface.processPayment(IBAN, 300);
+				bankInterface.processPayment(IBAN, 300);
 				this.result = PAYMENT_CONFIRMATION;
 
 				HotelInterface.reserveHotel(Type.SINGLE, AdventureProcessMethodMockTest.this.begin,

@@ -5,13 +5,14 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 
 public class AdventureConstructorMethodTest {
 	private Broker broker;
 
 	@Before
 	public void setUp() {
-		this.broker = new Broker("BR01", "eXtremeADVENTURE");
+		this.broker = new Broker("BR01", "eXtremeADVENTURE", new BankInterface());
 	}
 
 	@Test
